@@ -1,0 +1,14 @@
+{
+    "security.allowedUNCHosts": [
+        "wsl.localhost"
+    ],
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontSize": 16,
+    "editor.lineHeight": 1.4,
+    "editor.renderLineHighlight": "all",
+    "editor.fontLigatures": true,
+    "explorer.compactFolders": false,
+    "workbench.activityBar.location": "hidden",
+    "editor.minimap.enabled": false,
+    "workbench.iconTheme": "symbols",
+}
