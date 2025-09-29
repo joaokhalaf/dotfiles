@@ -1,58 +1,26 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-ZSH_THEME="powerlevel10k/powerlevel10k"
+ZSH_THEME="robbyrussell"
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-alias c='clear'
-alias grep="rg"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias ff='fzf --preview="bat --style=numbers --color=always {} | head -200"'
 
 eval "$(zoxide init zsh)"
 alias cd="z"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border --preview 'bat --color=always {}'"
-export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
+alias l='eza -lah --icons'
+alias lt='eza --tree --level=2 --icons'
+alias lta='eza --tree --level=2 -a --icons'
 
-fzf-history() { zle -I; eval $(history | fzf --tac | sed 's/ *[0-9]* *//') }
-zle -N fzf-history
-bindkey '^R' fzf-history
+alias f='fd --hidden --exclude .git'
 
-fzf-cd() { zle -I; cd "$(fd --type d --hidden --follow --exclude .git | fzf)" }
-zle -N fzf-cd
-bindkey '^F' fzf-cd
-
-alias lg="lazygit"
+alias rgf='rg --files | fzf'
 
 export NVM_DIR="$HOME/.nvm"
-nvm() {
-  unset -f nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  nvm "$@"
-}
-
-if [ -d "/usr/local/go/bin" ]; then
-  export PATH=$PATH:/usr/local/go/bin
-fi
-if [ -d "$HOME/go/bin" ]; then
-  export PATH=$PATH:$HOME/go/bin
-fi
-
-function load_composer() {
-  source $ZSH/plugins/composer/composer.plugin.zsh
-}
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
-eval "$(mise activate zsh)"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
