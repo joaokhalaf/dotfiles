@@ -2,6 +2,7 @@
     "security.allowedUNCHosts": [
         "wsl.localhost"
     ],
+    "workbench.startupEditor": "none",
     "editor.fontFamily": "JetBrains Mono",
     "editor.fontSize": 16,
     "editor.lineHeight": 1.4,
@@ -11,4 +12,15 @@
     "workbench.activityBar.location": "hidden",
     "editor.minimap.enabled": false,
     "workbench.iconTheme": "symbols",
+    "workbench.sideBar.location": "right",
+    "editor.wordWrap": "on",
+    "editor.linkedEditing": true,
+    "files.trimTrailingWhitespace": true,
+    "window.commandCenter": false,
+    "editor.guides.bracketPairs": "active",
+    "editor.bracketPairColorization.enabled": true,
+    // "editor.stickyScroll.enabled": true
+    "editor.occurrencesHighlight": "off",
+    "telemetry.telemetryLevel": "off",
+    "workbench.tips.enabled": false
 }
