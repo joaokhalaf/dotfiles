@@ -3,7 +3,7 @@
         "wsl.localhost"
     ],
     "workbench.startupEditor": "none",
-    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontFamily": "JetBrains Mono, Fira Code, Cascadia Code",
     "editor.fontSize": 16,
     "editor.lineHeight": 1.4,
     "editor.renderLineHighlight": "all",
@@ -22,5 +22,8 @@
     // "editor.stickyScroll.enabled": true
     "editor.occurrencesHighlight": "off",
     "telemetry.telemetryLevel": "off",
-    "workbench.tips.enabled": false
+    "workbench.tips.enabled": false,
+    "workbench.statusBar.visible": false,
+    "window.titleBarStyle": "custom",
+    "breadcrumbs.enabled": false
 }
