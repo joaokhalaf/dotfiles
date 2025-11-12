@@ -25,5 +25,8 @@
     "workbench.tips.enabled": false,
     "workbench.statusBar.visible": false,
     "window.titleBarStyle": "custom",
-    "breadcrumbs.enabled": false
+    "breadcrumbs.enabled": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "editor.inlineSuggest.enabled": false
 }
