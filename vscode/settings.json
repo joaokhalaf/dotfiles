@@ -9,7 +9,8 @@
     "editor.renderLineHighlight": "all",
     "editor.fontLigatures": true,
     "explorer.compactFolders": false,
-    "workbench.activityBar.location": "hidden",
+    "workbench.activityBar.location": "top",
+    "window.menuBarVisibility": "compact",
     "editor.minimap.enabled": false,
     "workbench.iconTheme": "symbols",
     "workbench.sideBar.location": "right",
@@ -19,14 +20,13 @@
     "window.commandCenter": false,
     "editor.guides.bracketPairs": "active",
     "editor.bracketPairColorization.enabled": true,
-    // "editor.stickyScroll.enabled": true
-    "editor.occurrencesHighlight": "off",
     "telemetry.telemetryLevel": "off",
     "workbench.tips.enabled": false,
     "workbench.statusBar.visible": false,
     "window.titleBarStyle": "custom",
     "breadcrumbs.enabled": false,
     "security.workspace.trust.untrustedFiles": "open",
+    "editor.unicodeHighlight.includeStrings": false,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "editor.inlineSuggest.enabled": false
 }
