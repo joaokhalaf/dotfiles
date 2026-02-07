@@ -19,7 +19,6 @@
     "window.commandCenter": false,
     "editor.guides.bracketPairs": "active",
     "editor.bracketPairColorization.enabled": true,
-    // "editor.stickyScroll.enabled": true
     "telemetry.telemetryLevel": "off",
     "workbench.tips.enabled": false,
     "window.titleBarStyle": "custom",
@@ -31,9 +30,13 @@
     "github.copilot.nextEditSuggestions.enabled": true,
     "claudeCode.preferredLocation": "panel",
     "typescript.updateImportsOnFileMove.enabled": "always",
-    "editor.scrollbar.vertical": "hidden",
     "editor.overviewRulerBorder": false,
     "workbench.layoutControl.enabled": false,
     "editor.smoothScrolling": true,
     "workbench.list.smoothScrolling": true,
+    "remote.autoForwardPortsSource": "hybrid",
+    "javascript.suggest.autoImports": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "extensions.ignoreRecommendations": true,
+    "editor.stickyScroll.enabled": false
 }
