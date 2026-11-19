@@ -2,18 +2,29 @@
 from dataclasses import dataclass
 import json
 from pathlib import Path
+import re
+import shutil
 import subprocess
+
+PROVIDERS = ('codex', 'claude', 'opencode')
 
 
 @dataclass
 class Invocation:
     argv: list[str]
     report: Path | None = None
+    schema: dict | None = None
+
+    def prompt(self, text):
+        if self.schema is None:
+            return text
+        return (text + '\n\nEnd with a final message that is only a JSON object, no prose or code fence, '
+                'matching this JSON Schema:\n' + json.dumps(self.schema))
 
 
 def validate_executor(spec):
-    if not isinstance(spec, dict) or spec.get('provider') not in ('codex', 'claude'):
-        raise ValueError('Executor provider must be codex or claude')
+    if not isinstance(spec, dict) or spec.get('provider') not in PROVIDERS:
+        raise ValueError('Executor provider must be one of: ' + ', '.join(PROVIDERS))
     model = spec.get('model')
     if model is not None and (not isinstance(model, str) or not model.strip()):
         raise ValueError('Executor model must be a nonempty string or null (inherit CLI default)')
@@ -41,10 +52,13 @@ def authenticated(provider):
     if provider == 'claude':
         result = subprocess.run(['claude', 'auth', 'status', '--json'], text=True, capture_output=True)
         return result.returncode == 0 and json.loads(result.stdout).get('loggedIn', False)
+    if provider == 'opencode':
+        return shutil.which('opencode') is not None and subprocess.run(
+            ['opencode', '--version'], capture_output=True).returncode == 0
     raise ValueError(f'Unknown provider: {provider}')
 
 
-def build(spec, root, log, schema, readonly=False):
+def build(spec, log, schema, readonly=False):
     validate_executor(spec)
     if spec['provider'] == 'codex':
         schema_path = log.with_suffix('.schema.json')
@@ -58,7 +72,13 @@ def build(spec, root, log, schema, readonly=False):
         if spec.get('model'):
             argv += ['--model', spec['model']]
         return Invocation(argv + ['-'], report_path)
-    argv = ['claude', '-p', '--output-format', 'json', '--plugin-dir', str(root),
+    if spec['provider'] == 'opencode':
+        argv = ['opencode', 'run', '--format', 'json', '--archived',
+                '--agent', 'plan' if readonly else 'build']
+        if spec.get('model'):
+            argv += ['--model', spec['model']]
+        return Invocation(argv, schema=schema)
+    argv = ['claude', '-p', '--output-format', 'json',
             '--permission-prompts', 'none', '--json-schema', json.dumps(schema)]
     if spec.get('model'):
         argv += ['--model', spec['model']]
@@ -66,7 +86,39 @@ def build(spec, root, log, schema, readonly=False):
     return Invocation(argv)
 
 
+def last_json_object(text):
+    text = re.sub(r'^```(?:json)?\s*|\s*```$', '', text.strip())
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        start = text.rfind('\n{')
+        return json.loads(text[start + 1:]) if start >= 0 else None
+
+
+def parse_opencode(log):
+    events = []
+    for line in log.read_text().splitlines():
+        try:
+            value = json.loads(line)
+            if isinstance(value, dict):
+                events.append(value)
+        except json.JSONDecodeError:
+            pass
+    if any(event.get('type') == 'error' for event in events):
+        raise RuntimeError(f'OpenCode reported an error: {log}')
+    texts = [event['part'].get('text', '') for event in events
+             if event.get('type') == 'text' and isinstance(event.get('part'), dict)]
+    finished = [event for event in events if event.get('type') == 'step_finish']
+    if not texts or not finished:
+        raise RuntimeError(f'OpenCode did not finish with a text report: {log}')
+    tokens = finished[-1].get('part', {}).get('tokens')
+    return last_json_object(texts[-1]), {
+        'estimated_usd': None, 'usage': tokens, 'session_id': events[0].get('sessionID')}
+
+
 def parse(spec, invocation, log):
+    if spec['provider'] == 'opencode':
+        return parse_opencode(log)
     if spec['provider'] == 'claude':
         value = json.loads(log.read_text())
         if value.get('is_error'):

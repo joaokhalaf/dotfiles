@@ -4,55 +4,31 @@ scripts/factory.py continua disponível para quem quiser execução em lote. Ele
 controla uma sequência fixa e mantém SQLite, worktrees e logs. A conversa não
 depende dele. As seções seguintes documentam somente essa opção de execução.
 
-## Trocar provider
+## Providers e perfis
 
-factory.example.json oferece dois perfis. O piloto já está configurado em
-[pilots/esports-simulator](../pilots/esports-simulator/README.md).
+O runner chama as CLIs em modo não interativo. Cada etapa é um processo novo, com
+`PWD` igual à worktree da tarefa.
 
-```sh
-python3 scripts/factory.py --config pilots/esports-simulator/factory.local.json --profile home doctor
-python3 scripts/factory.py --config pilots/esports-simulator/factory.local.json --profile work doctor
-```
+| Provider | Autor | Revisor | Relatório |
+|---|---|---|---|
+| `claude` | `claude -p` com as permissões existentes, `--permission-prompts none` | idem; somente leitura por instrução, não por sandbox | `--json-schema` (saída estruturada) |
+| `codex` | `codex exec --sandbox workspace-write` | `codex exec --sandbox read-only` | `--output-schema` |
+| `opencode` | `opencode run --agent build` | `opencode run --agent plan` (sem edição) | JSON pedido no prompt, lido da última mensagem |
 
-home é o padrão: Codex com modelo herdado da CLI e duas revisões em sessões novas
-com focos distintos. São revisões independentes do mesmo modelo padrão; não se
-apresentam como multi-modelo. work usa Claude, autor Sonnet e revisores Sonnet/Opus.
-Para modelos distintos no Codex, defina `model` nos reviewers conforme seu acesso.
-Não há fallback silencioso de modelo ou provider.
-
-Cada perfil define:
-
-```json
-{
-  "executor": {"provider": "codex", "model": null},
-  "reviewers": [
-    {"provider": "codex", "model": null, "focus": "contratos e entradas inválidas"},
-    {"provider": "codex", "model": null, "focus": "regressões e critérios de aceite"}
-  ]
-}
-```
-
-Os adapters estão em scripts/providers.py; normalizam execução, resultado e uso.
-Adicionar um provider exige implementar esse contrato e testes, sem alterar fila
-ou playbooks. Podem-se configurar providers diferentes por lane. Configurações
-anteriores author_model/review_models continuam aceitas como Claude.
-
-## Usar skills no terminal ou em uma interface de agente
-
-Codex: peça ao coordenador para ler o SKILL.md desejado em skills/ e o contrato
-skills/poteto-mode/references/runtime.md. O runner fornece caminhos absolutos aos
-agentes, sem depender do carregador de plugins do Claude.
-
-Claude Code no repositório alvo:
+`factory.example.json` traz os perfis `claude` (padrão), `codex`, `opencode` e
+`misto` (autor Claude, revisores Codex e OpenCode). `model: null` herda o padrão de
+cada CLI; no OpenCode, `model` usa o formato `provider/modelo`. Revisões do mesmo
+provider são sessões independentes, não multi-modelo. Não há fallback silencioso
+de modelo ou provider.
 
 ```sh
-claude --plugin-dir /home/khalaf/work/home-dev-setup
+python3 scripts/factory.py --config factory.local.json --profile misto doctor
 ```
 
-Use /home-factory:poteto-mode ou /home-factory:autopilot-stack.
-Alternativa para comandos sem namespace: `python3 scripts/install.py --dest
-/caminho/projeto/.claude/skills`. Não use as duas formas na mesma sessão. O instalador
-não sobrescreve arquivos existentes. Abra sessão nova após editar skills.
+Os adapters estão em `scripts/providers.py`. Adicionar um provider exige
+implementar `build`/`parse`/`authenticated` e testes, sem alterar fila ou skills.
+Todos os agentes leem `skills/poteto-mode/worker.md` pelo caminho absoluto; as
+skills globais instaladas por `scripts/install.py` ficam disponíveis do mesmo jeito.
 
 ## Configurar um projeto
 
@@ -106,10 +82,11 @@ e termina. O autor escreve na worktree; o host confere escopo e cria o commit.
 Depois executa checks e revisões no SHA exato. Novo head, checkout sujo, reprovação
 ou revisão sem evidência bloqueiam a tarefa.
 
-Codex usa workspace-write para autor e read-only para revisores. Claude usa as
-permissões existentes, sem bypass; restrições podem bloquear ferramentas no modo
-não interativo. O contrato de leitura dos revisores Claude é instrução, não sandbox.
-MCPs também mantêm suas permissões reais. Não flexibilize gates para conseguir verde.
+Codex usa workspace-write para autor e read-only para revisores. Claude e OpenCode
+usam as permissões existentes, sem bypass; restrições podem bloquear ferramentas no
+modo não interativo. O revisor OpenCode usa o agente `plan`, que nega edições; o
+revisor Claude é somente leitura por instrução, não por sandbox. MCPs também mantêm
+suas permissões reais. Não flexibilize gates para conseguir verde.
 
 ## Entrega e retomada
 
@@ -146,9 +123,9 @@ Estado em .factory/<hash-do-repo>/: SQLite, worktrees e logs por tarefa/tentativ
 com prompts, relatórios, comandos, tokens e ids de sessão quando disponíveis.
 Padrão: duas tentativas, 30 minutos por etapa e seis chamadas por rodada.
 
-Claude informa custo estimado quando disponível; Codex fornece tokens, sem converter
+Claude informa custo estimado quando disponível; Codex e OpenCode fornecem tokens, sem converter
 para USD. max_estimated_usd_per_run é um limite de admissão entre chamadas, não um
 teto rígido: chamadas em andamento podem excedê-lo. Com limite monetário configurado
-e sem telemetria, novas chamadas bloqueiam; deixe null para Codex. Tokens/custo não
-medem saldo de assinatura ou cota restante do Max 5x. Não há retry infinito.
+e sem telemetria, novas chamadas bloqueiam; deixe null para Codex e OpenCode. Tokens e custo não
+medem saldo nem cota da assinatura. Não há retry infinito.
 

@@ -8,9 +8,27 @@
   "max_estimated_usd_per_run": null,
   "checks": [],
   "behavior_checks": [],
-  "default_profile": "home",
+  "default_profile": "claude",
   "profiles": {
-    "home": {
+    "claude": {
+      "executor": {
+        "provider": "claude",
+        "model": null
+      },
+      "reviewers": [
+        {
+          "provider": "claude",
+          "model": null,
+          "focus": "contratos, entradas inválidas e integridade dos dados"
+        },
+        {
+          "provider": "claude",
+          "model": null,
+          "focus": "regressões, critérios de aceite e qualidade das evidências"
+        }
+      ]
+    },
+    "codex": {
       "executor": {
         "provider": "codex",
         "model": null
@@ -28,21 +46,39 @@
         }
       ]
     },
-    "work": {
+    "opencode": {
       "executor": {
-        "provider": "claude",
-        "model": "sonnet"
+        "provider": "opencode",
+        "model": null
       },
       "reviewers": [
         {
-          "provider": "claude",
-          "model": "sonnet",
-          "focus": "contratos e entradas inválidas"
+          "provider": "opencode",
+          "model": null,
+          "focus": "contratos, entradas inválidas e integridade dos dados"
         },
         {
-          "provider": "claude",
-          "model": "opus",
-          "focus": "regressões e critérios de aceite"
+          "provider": "opencode",
+          "model": null,
+          "focus": "regressões, critérios de aceite e qualidade das evidências"
+        }
+      ]
+    },
+    "misto": {
+      "executor": {
+        "provider": "claude",
+        "model": null
+      },
+      "reviewers": [
+        {
+          "provider": "codex",
+          "model": null,
+          "focus": "contratos, entradas inválidas e integridade dos dados"
+        },
+        {
+          "provider": "opencode",
+          "model": null,
+          "focus": "regressões, critérios de aceite e qualidade das evidências"
         }
       ]
     }

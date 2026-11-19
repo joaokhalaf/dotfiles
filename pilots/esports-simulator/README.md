@@ -43,14 +43,8 @@ O runner inicia o provider selecionado com as permissões/sandbox existentes. Se
 de permissão que não possa ser concedida em modo não interativo, a tarefa deve
 bloquear e mostrar os logs. Não habilitar bypass como solução automática.
 
-Após verified_local, abrir o coordenador Codex pelo Herdr e instruí-lo a ler as fontes locais.
-No trabalho, a opção equivalente para Claude é:
-
-```sh
-claude --plugin-dir /home/khalaf/work/home-dev-setup
-```
-
-Use /home-factory:autopilot-stack com os ids, SHAs e logs da rodada para entregar
+Após verified_local, abra uma sessão de qualquer provider (as skills são globais) e
+use /autopilot-stack com os ids, SHAs e logs da rodada para entregar
 PRs verificados. Sem merge. Não rodar factory.py de dentro do agente para delegar.
 
 Configuração local é ignorada no Git por conter caminho desta máquina. Para levar

@@ -133,6 +133,11 @@ class FactoryTest(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             FakeRunner(self.config, self.store).execute(['python3', '-c', 'import time; time.sleep(10)'], self.repo, self.root / 'timeout.log')
 
+    def test_agent_sees_worktree_as_pwd(self):
+        log = self.root / 'pwd.log'
+        FakeRunner(self.config, self.store).execute(['python3', '-c', 'import os; print(os.environ["PWD"])'], self.repo, log)
+        self.assertEqual(log.read_text().strip(), str(self.repo))
+
     def test_agent_call_cap_is_enforced_before_launch(self):
         task = self.store.enqueue(self.card)
         self.store.update(task, worktree=str(self.repo))

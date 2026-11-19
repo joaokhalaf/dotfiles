@@ -169,7 +169,7 @@ class Runner:
                 prompt_file = log.with_suffix('.prompt.txt')
                 prompt_file.write_text(stdin)
                 input_stream = stack.enter_context(prompt_file.open())
-            process = subprocess.Popen(argv, cwd=cwd, stdin=input_stream,
+            process = subprocess.Popen(argv, cwd=cwd, env={**os.environ, 'PWD': str(cwd)}, stdin=input_stream,
                                        stdout=output, stderr=subprocess.STDOUT, text=True, start_new_session=True)
             try:
                 deadline = time.monotonic() + self.config['timeout_seconds']
@@ -199,12 +199,11 @@ class Runner:
         row = self.store.get(task)
         spec = model if isinstance(model, dict) else {'provider': 'claude', 'model': model}
         readonly = log.name.startswith('review')
-        invocation = providers.build(spec, ROOT, log, SCHEMA, readonly=readonly)
-        # Paths let Codex read the same skill sources without a Claude plugin loader.
+        invocation = providers.build(spec, log, SCHEMA, readonly=readonly)
         sources = (self.coordination_context() + 'Factory source root: ' + str(ROOT) + '\n'
-                   'Read ' + str(ROOT / 'skills/poteto-mode/references/runtime.md') +
-                   ' and the relevant SKILL.md under that skills directory.\n')
-        self.execute(invocation.argv, row['worktree'], log, sources + prompt)
+                   'Read ' + str(ROOT / 'skills/poteto-mode/worker.md') + ' before anything else, '
+                   'and the relevant SKILL.md under that skills directory.\n')
+        self.execute(invocation.argv, row['worktree'], log, invocation.prompt(sources + prompt))
         report, telemetry = providers.parse(spec, invocation, log)
         cost = telemetry['estimated_usd']
         with self.guard:
@@ -258,7 +257,7 @@ class Runner:
             original = row.get('base_head') or git(cwd, 'rev-parse', 'HEAD')
             self.store.update(task, base_head=original)
             card = json.loads(row['card'])
-            prompt = ('Read the home-factory poteto-mode, architect and runtime contract. '
+            prompt = ('Follow the factory poteto-mode feature playbook and the architect skill. '
                       'You own only the card below. Work only in this task worktree; follow the selected coordination mode. '
                       'No child agents, push, PR, merge, permissions changes or gate weakening. '
                       'Implement and run relevant verification. Do not commit; the runner commits after scope validation. '
@@ -287,7 +286,7 @@ class Runner:
                                                 'log': str(logs / f'check-{i}.log')})
                 self.clean_head(cwd, head)
             for i, model in enumerate(reviewers):
-                review = ('Read home-factory interrogate and runtime. You did not author this change. '
+                review = ('Follow the factory interrogate skill in light mode. You did not author this change. '
                           'Review and independently execute acceptance checks for exact HEAD ' + head +
                           ' against base ' + original + '. No edits, commits, children, push, PR or merge. '
                           'Do not claim PASS without real executed evidence; prove any defect. '
