@@ -53,3 +53,8 @@ tinham a regra só na description, ela foi trazida para o corpo. Adaptados:
 never-block-on-the-human segue a autonomia local (push/PR só com pedido);
 guard-the-context-window e type-system-discipline ganharam os itens que o upstream
 só citava na description; typescript-best-practices não foi referenciado.
+Skills de apoio do mesmo commit, traduzidas e adaptadas: technical-writing, why,
+tdd, benchmark-checklist e unslop (model-invocable, pt-BR + inglês); arena,
+show-me-your-work (log.sh e template copiados sem alteração) e figure-it-out
+(só invocação). arena e a revisão do show-me-your-work usam outro provider via T3
+quando disponível, senão contexto novo do mesmo modelo, declarado.
