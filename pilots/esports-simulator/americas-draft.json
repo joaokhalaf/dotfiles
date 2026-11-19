@@ -1,0 +1,14 @@
+{
+  "title": "Contrato de leitura de rascunhos Americas persistidos",
+  "goal": "Adicionar testes de contrato de parseAmericasDraft usando entradas desserializadas válidas e malformadas. Não mudar API pública nem dados publicados. Crie somente packages/api/test/americas-draft.test.ts. Inspecione os testes existentes para não repetir casos sem ganho. Se detectar um defeito que exige produção fora do escopo, reporte BLOCKED com reprodução. Rode também o novo arquivo explicitamente.",
+  "acceptance": [
+    "Rascunho inicial válido e serializado continua aceito sem mutação",
+    "Entrada nula, campos ausentes, região ausente e nomes duplicados/convites em conflito retornam null em vez de lançar exceção",
+    "Rascunhos publicados com versão/roster adulterados são rejeitados sem rede ou banco",
+    "O novo arquivo passa via pnpm --filter @esports-simulator/api exec tsx --test test/americas-draft.test.ts; os testes existentes continuam passando"
+  ],
+  "scope": [
+    "packages/api/test/americas-draft.test.ts"
+  ],
+  "depends_on": []
+}

@@ -1,0 +1,51 @@
+{
+  "repo": "/caminho/absoluto/do/projeto",
+  "base": "main",
+  "concurrency": 2,
+  "max_attempts": 2,
+  "timeout_seconds": 1800,
+  "max_agent_calls_per_run": 6,
+  "max_estimated_usd_per_run": null,
+  "checks": [],
+  "behavior_checks": [],
+  "default_profile": "home",
+  "profiles": {
+    "home": {
+      "executor": {
+        "provider": "codex",
+        "model": null
+      },
+      "reviewers": [
+        {
+          "provider": "codex",
+          "model": null,
+          "focus": "contratos, entradas inválidas e integridade dos dados"
+        },
+        {
+          "provider": "codex",
+          "model": null,
+          "focus": "regressões, critérios de aceite e qualidade das evidências"
+        }
+      ]
+    },
+    "work": {
+      "executor": {
+        "provider": "claude",
+        "model": "sonnet"
+      },
+      "reviewers": [
+        {
+          "provider": "claude",
+          "model": "sonnet",
+          "focus": "contratos e entradas inválidas"
+        },
+        {
+          "provider": "claude",
+          "model": "opus",
+          "focus": "regressões e critérios de aceite"
+        }
+      ]
+    }
+  },
+  "coordination": "local"
+}

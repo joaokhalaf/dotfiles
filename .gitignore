@@ -1,0 +1,5 @@
+.claude/skills/
+__pycache__/
+.factory/
+factory.local.json
+card-*.json

@@ -1,0 +1,14 @@
+{
+  "title": "Cobertura das invariantes de snapshots Worlds",
+  "goal": "Adicionar testes de contrato para validateSnapshot, sem mudar regras de torneio nem fazer refatorações. Use fixtures derivadas do seed e cubra lacunas que ainda não estejam demonstradas nos testes existentes. Crie somente packages/api/test/snapshot-validation.test.ts. Não afrouxe validações existentes. Se encontrar defeito real que exigir fonte de produção fora do escopo, reporte BLOCKED com reprodução. Rode também o novo arquivo explicitamente pois a configuração piloto executa a suíte existente.",
+  "acceptance": [
+    "Snapshot válido continua aceito e não é mutado pela validação",
+    "Equipes duplicadas/desconhecidas, partida contra si mesma e formatos incompatíveis são rejeitados em casos ainda não cobertos",
+    "Fixtures rodam offline, sem banco ou requests externos",
+    "O novo arquivo passa via pnpm --filter @esports-simulator/api exec tsx --test test/snapshot-validation.test.ts; os 22 testes existentes continuam passando"
+  ],
+  "scope": [
+    "packages/api/test/snapshot-validation.test.ts"
+  ],
+  "depends_on": []
+}
