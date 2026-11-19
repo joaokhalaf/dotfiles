@@ -1,33 +1,23 @@
 ---
 name: no-comments
-description: Remova comentários explicativos e workarounds do diff e converta restrições em APIs, tipos ou checks, preservando obrigações externas.
+description: Lança o Comment Sicko no diff, corrige os achados aceitos e oferece codificar restrições alegadas em comentários. Use para /no-comments ou antes de commit/revisão.
+disable-model-invocation: true
 ---
 
 # No comments
 
-Leia a [política de qualidade](../poteto-mode/references/quality.md). Use os arquivos
-pedidos; sem escopo explícito, examine somente o diff atual, incluindo arquivos
-novos. Não faça uma limpeza de todo o repositório por estar usando esta skill.
+Lance o Comment Sicko e aja sobre os achados aceitos. Confie na perspectiva nova dele. Leia a [política de qualidade](../poteto-mode/references/quality.md).
 
-1. Leia cada comentário com o código e seus chamadores. Remova narrativa, código
-   comentado morto e justificativas para workarounds evitáveis. Se nomes, tipos ou
-   estrutura precisarem explicar o comportamento, corrija o código dentro do escopo.
-2. Para “não remova”, “sempre faça X” ou “esta ordem importa”, busque a razão e
-   transforme a restrição em API, tipo, teste ou gate executável. Não apague a única
-   informação sobre uma restrição real antes de preservá-la no mecanismo correto.
-3. Preserve cabeçalhos de licença, avisos obrigatórios, exemplos de documentação
-   pública necessários e diretivas exigidas pelas ferramentas. Em restrição externa
-   que não controlamos, retenha só a explicação curta com evidência e origem.
-4. Inspecione suppressions de lint/tipos. Remova causas e supressões quando viável;
-   não adicione ou amplie suppressions para conseguir verde. Se uma solução exige
-   ampliar escopo, reporte o problema e o trabalho necessário, sem expandir sozinho.
-5. Rode os checks relevantes e examine o diff para confirmar comportamento preservado.
-   Para mudanças só em texto não invente testes de runtime; para mudanças em código
-   comprove o contrato observável. Informe remoções, preservações com razão,
-   mecanismos criados e restrições ainda não impostas.
+## Escopo
 
-Um revisor independente pode ajudar em uma limpeza extensa; não é obrigatório
-criar Comment Sicko ou usar APIs de agentes do Cursor. Use as ferramentas permitidas
-pela sessão e identifique revisão própria quando não houver independência.
+Os arquivos ou o diff do chamador. Senão, o diff atual contra a branch base (padrão `main`), incluindo a árvore de trabalho e arquivos novos. Não faça limpeza do repositório inteiro.
 
-Leia [runtime](../poteto-mode/references/runtime.md) para execução e coordenação.
+## Passos
+
+1. Lance um subagente com escrita no checkout (ou worktree com as mudanças copiadas) cujo kickoff é `Leia <caminho>/references/comment-sicko.md e assuma esse papel.` mais o escopo. Não repita as regras dele. Sem delegação disponível, aplique você mesmo as regras e diga que não houve perspectiva nova.
+2. Inspecione o relatório e o diff dele. Rejeite edições de código de aplicação, fugas de escopo, remoções protegidas por exceção, razões de `MUST KILL` mal declaradas, e flags que tratam código intencional mantido como culpado. Flags de reshape sobre surpresas do nosso código continuam acionáveis; não restaure esses comentários. Um "manter" sobrevive só com prova de que trata de algo que não podemos mudar. Audite supressões de lint e TypeScript no escopo que ele perdeu; supressões de correção ou segurança continuam `MUST KILL`. Restaure remoções só com a exceção exata e prova no escopo. Antes de aceitar kills ou keeps finos de `IMPORTANT` ou "não remova", rastreie o símbolo ou rode **why** nele. Kill ambíguo: não restaure. Keep refutado ou ainda ambíguo: apague. Reverta e relance uma vez um relatório rejeitado, nomeando a falha. Segunda rejeição: reporte em aberto e falhe o `/no-comments`.
+3. Corrija direto os flags triviais aceitos: apague o caminho morto, remova o parâmetro, use a API real. Se alguma correção precisa de formato, rode **architect** uma vez para o conjunto aceito e o código ao redor. Pare no esboço; o passo 4 implementa.
+4. Implemente a menor correção de causa raiz dentro do escopo. Remova todo workaround nomeado. Causa raiz fora do escopo: entregue a menor correção no escopo e reporte o resto em aberto. **principle-fix-root-causes** e **principle-redesign-from-first-principles** orientam a intenção; nenhum autoriza ampliar o escopo. Nunca acrescente guardas de sintoma.
+5. Comentários de restrição dizem "não remova", "não mude o texto" ou "fale com X antes de mudar". Mantenha os que tratam de algo que não podemos mudar. Ofereça o tipo, check de runtime, teste ou lint mais barato no escopo e espere aprovação (em execução sem supervisão, só com pré-aprovação do chamador). Aprovado: codifique, depois apague. Senão: apague, reporte a restrição em aberto e esboce o trabalho fora do escopo.
+6. Rode os checks relevantes e confira o diff: comportamento preservado.
+7. Reporte: quantidade de remoções, comentários restaurados, relançamentos, esboço do architect, correções, ofertas de codificação, codificações feitas, restrições não impostas e outro trabalho aberto.

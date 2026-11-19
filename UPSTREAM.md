@@ -67,3 +67,12 @@ grill-with-docs e domain-modeling (com GLOSSARY-FORMAT e ADR-FORMAT) traduzidos
 para pt-BR; glossário e ADRs sempre em pt-BR. grilling vira o primeiro passo do
 poteto-mode. agents/openai.yaml (allow_implicit_invocation: false) é gerado por
 scripts/check_skills.py --fix para toda skill com disable-model-invocation.
+
+## Skills de método (2026-11-19)
+
+Do commit 0b46ec3 do pstack: architect (fundido com dev-architect), swarm,
+interrogate (fundido com dev-review como modo leve), no-comments (Comment Sicko
+como references/comment-sicko.md lido por subagente, sem agente customizado),
+correct, reflect (edita as fontes da factory), create-verification-skill (exemplo de
+mapa reduzido a uma feature, em pt-BR) e maintain-verification-skill. autopilot-stack
+e autopilot-full viraram atalhos para os playbooks do poteto-mode.
