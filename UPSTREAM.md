@@ -37,3 +37,14 @@ Adaptações de qualidade consultadas em 2026-11-17:
 Versões locais condensadas: sem Comment Sicko obrigatório, APIs Task ou diretório
 .cursor. Geração usa o driver e a pasta de skills do projeto e exige prova real.
 Licença upstream continua preservada em LICENSE.
+
+## poteto-mode completo (2026-11-19)
+
+Fonte: https://github.com/cursor/plugins/tree/main/pstack/skills/poteto-mode,
+commit 0b46ec399d55f2829e88822998f53b84944837d3.
+SKILL.md, worker.md e os 22 playbooks traduzidos para pt-BR e adaptados. Mudanças
+deliberadas: autonomia sem push/PR/merge implícitos; subagentes por benefício e
+herdando o modelo; cursor-team-kit trocado por no-comments/unslop e dev-verify;
+Origin, Graphite, Bugbot e cloud agents removidos; references/harness.md mapeia
+Claude Code, Codex, OpenCode e T3. scripts/worktree-audit.sh portado para
+transcrições do Claude Code e do Codex. watch-pr não foi portado (gh/T3 cobrem).
