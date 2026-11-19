@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: Minera a transcrição ativa por aprendizados duráveis e encaminha cada um para uma edição concreta numa skill da factory. Use quando o usuário disser "reflect" ou "o que aprendemos".
+description: Minera a transcrição ativa por aprendizados duráveis e encaminha cada um para uma edição concreta numa skill de `~/work/home-dev-setup`. Use quando o usuário disser "reflect" ou "o que aprendemos".
 disable-model-invocation: true
 ---
 
@@ -14,4 +14,4 @@ Mantenha um achado só se ele ainda valer em seis meses, mudaria o que um agente
 
 Apresente Aceitos (problema, proposta, skill), Rejeitados (motivo) e Backlog, e espere aprovação antes de editar qualquer skill.
 
-Edite as fontes em `~/work/home-dev-setup/skills/<skill>/`, nunca cópias instaladas nem cache de plugin. Depois de editar, rode `python3 scripts/check_skills.py --fix` e faça commit local na factory. Nunca abra PR nem faça push.
+Edite as fontes em `~/work/home-dev-setup/skills/<skill>/`, nunca cópias instaladas nem cache de plugin. Depois de editar, rode `python3 scripts/check_skills.py --fix` e faça commit local nesse repositório. Nunca abra PR nem faça push.

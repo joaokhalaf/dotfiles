@@ -1,6 +1,6 @@
 # Qualidade por estrutura e checks
 
-Preferência explícita do usuário para o código produzido pela factory: reduzir
+Preferência explícita do usuário para o código produzido pelos agentes: reduzir
 decisões ambíguas por meio de APIs e verificações automáticas. Não basta escrever
 uma instrução e assumir que ela será obedecida.
 
@@ -41,7 +41,7 @@ domínio exigir, não uma abstração genérica que apenas desloca condicionais.
 Ordem preferida: API/arquitetura → tipos/exports → lint/CI → testes de comportamento
 → instruções para o que ainda exige julgamento. Para cada restrição implementada
 registre regra, mecanismo, comando e evidência de rejeição/aceitação. Não afrouxe
-gates para passar. Ao adicionar estas skills à factory, não alegue que o lint já
+gates para passar. Ao adicionar estas skills, não alegue que o lint já
 foi instalado nos aplicativos; esse enforcement depende de mudança no projeto.
 
 Se falta um procedimento reproduzível para provar o comportamento real, use

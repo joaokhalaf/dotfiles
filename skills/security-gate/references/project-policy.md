@@ -2,7 +2,7 @@
 
 Defina a política no repositório alvo, por exemplo em SECURITY.md, após inspecionar
 stack, workflows e modelo de implantação. Evite instalar scanners globais só por
-usar esta factory. Registre:
+usar estas práticas. Registre:
 
 - Fronteiras: entradas públicas, identidades, recursos privados, operações
   privilegiadas, segredos e serviços externos.
