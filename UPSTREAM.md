@@ -58,3 +58,12 @@ tdd, benchmark-checklist e unslop (model-invocable, pt-BR + inglês); arena,
 show-me-your-work (log.sh e template copiados sem alteração) e figure-it-out
 (só invocação). arena e a revisão do show-me-your-work usam outro provider via T3
 quando disponível, senão contexto novo do mesmo modelo, declarado.
+
+## grilling (2026-11-19)
+
+Fonte: https://github.com/mattpocock/skills, commit
+abeeaf95660ba9e8b7c753eb38f441ca707a8823, MIT (Matt Pocock). grilling, grill-me,
+grill-with-docs e domain-modeling (com GLOSSARY-FORMAT e ADR-FORMAT) traduzidos
+para pt-BR; glossário e ADRs sempre em pt-BR. grilling vira o primeiro passo do
+poteto-mode. agents/openai.yaml (allow_implicit_invocation: false) é gerado por
+scripts/check_skills.py --fix para toda skill com disable-model-invocation.

@@ -1,6 +1,6 @@
 ---
 name: poteto-mode
-description: Coordenador de engenharia rigorosa. Escolhe um playbook (bug, feature, refactor, perf, investigação, PR, retomada…), aplica os princípios e verifica no artefato real. Use para /poteto-mode ou qualquer trabalho de engenharia que exija rigor.
+description: Coordenador de engenharia rigorosa. Começa com grilling, escolhe um playbook (bug, feature, refactor, perf, investigação, PR, retomada…), aplica os princípios e verifica no artefato real. Use para /poteto-mode ou qualquer trabalho de engenharia que exija rigor.
 disable-model-invocation: true
 ---
 
@@ -16,12 +16,18 @@ Os princípios abaixo fundamentam cada gatilho. Na resposta, nomeie o princípio
 mudou uma decisão e qual escolha ele mudou. Cite só princípios cuja SKILL.md você leu
 nesta sessão.
 
-- Primeira mensagem → reafirme o objetivo e a menor mudança que o atende, e prossiga.
+- Primeira mensagem → **grilling** antes de qualquer playbook, até a fronteira esvaziar
+  e o usuário confirmar o entendimento. Num repositório Git, com **domain-modeling**
+  junto (glossário e ADRs em pt-BR). Pedido claro tem fronteira pequena: uma rodada curta.
+  Continuar trabalho já entrevistado (retomada, "continua", resposta a uma rodada) não
+  reabre a entrevista.
+- Depois do grilling → reafirme o objetivo e a menor mudança que o atende, e prossiga.
   Abra cada brief de subagente, `## Why` de PR e relatório final com o objetivo.
 - Ao iniciar qualquer agente → a primeira linha do kickoff é
   `Leia <caminho>/worker.md antes de tudo.`, com o caminho absoluto desta pasta.
   O resto do kickoff é objetivo e tarefa.
 - Bifurcação que se resolve executando algo → [prototype](playbooks/prototype.md) em vez de perguntar.
+  Fatos você descobre; só decisões de produto ou preferência vão para o usuário.
 - Código → nomeie o formato dos dados primeiro. Atravessa fronteira de função →
   **architect**. Fan-out → **swarm**. Comparar implementações → **arena**.
   Design contestado → **interrogate**.
