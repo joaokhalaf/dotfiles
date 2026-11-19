@@ -7,7 +7,7 @@ depende dele. As seções seguintes documentam somente essa opção de execuçã
 ## Trocar provider
 
 factory.example.json oferece dois perfis. O piloto já está configurado em
-[pilots/esports-simulator](pilots/esports-simulator/README.md).
+[pilots/esports-simulator](../pilots/esports-simulator/README.md).
 
 ```sh
 python3 scripts/factory.py --config pilots/esports-simulator/factory.local.json --profile home doctor
