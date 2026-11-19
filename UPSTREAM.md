@@ -48,3 +48,8 @@ herdando o modelo; cursor-team-kit trocado por no-comments/unslop e dev-verify;
 Origin, Graphite, Bugbot e cloud agents removidos; references/harness.md mapeia
 Claude Code, Codex, OpenCode e T3. scripts/worktree-audit.sh portado para
 transcrições do Claude Code e do Codex. watch-pr não foi portado (gh/T3 cobrem).
+Os 24 skills principle-* do mesmo commit foram traduzidos para pt-BR. Nos que
+tinham a regra só na description, ela foi trazida para o corpo. Adaptados:
+never-block-on-the-human segue a autonomia local (push/PR só com pedido);
+guard-the-context-window e type-system-discipline ganharam os itens que o upstream
+só citava na description; typescript-best-practices não foi referenciado.
