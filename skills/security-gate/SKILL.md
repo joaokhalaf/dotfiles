@@ -1,9 +1,10 @@
 ---
-name: security-review
-description: Integre revisão de segurança proporcional ao risco na factory e configure gates específicos do projeto; auditoria completa somente quando solicitada.
+name: security-gate
+description: Triagem de segurança proporcional ao risco, revisão focada com refutação independente e gates de segurança por projeto. Use para /security-gate, quando uma mudança toca fronteira de confiança, ou para definir a política de segurança de um projeto. Auditoria completa é /security-audit.
+disable-model-invocation: true
 ---
 
-# Segurança na factory
+# Security gate
 
 Leia a política de segurança do projeto quando existir. Para defini-la, use
 [project-policy](references/project-policy.md). Registre no plano o risco da mudança

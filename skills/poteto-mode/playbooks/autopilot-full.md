@@ -4,7 +4,7 @@
 
 Exige instrução explícita autorizando merge e nomeando os itens. Pedir o plano não é autorização. Itens fora da fila param em merge-ready.
 
-1. **Gates do operador primeiro**, inclusive os de **security-review** no head atual. Nunca use admin, bypass ou enfraqueça gates.
+1. **Gates do operador primeiro**, inclusive os de **security-gate** no head atual. Nunca use admin, bypass ou enfraqueça gates.
 2. **Um dono por PR**, subagente em worktree isolada, que constrói, abre o PR por [opening-a-pr](opening-a-pr.md), prova a mudança no artefato real, faz babysit até verde por [babysit](babysit.md) e integra quando os passos 4 e 5 liberam. Onde o babysit manda reportar rebase, o dono faz rebase da própria branch e publica com `git push --force-with-lease`.
    Abra o PR cedo para CI e bots rodarem junto. O código está pronto só depois de **no-comments** e **unslop**. Então rebase no trunk atual e reporte o head pronto antes da autoprova. Rode os checks do repo nos caminhos tocados antes de cada push que precise de verificador.
    Registre ids de subagentes, estado e trilha por **show-me-your-work**, para outro dono retomar. Force-push só na própria branch, com `--force-with-lease` no SHA que você publicou por último; push que você não fez → pare e reporte.

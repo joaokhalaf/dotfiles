@@ -1,21 +1,27 @@
-# Factory conduzida pelo chat
+# Factory
 
-Para desenvolver esta factory, leia `skills/poteto-mode/SKILL.md` e siga o fluxo
-adequado ao pedido. O chat principal coordena; o runner Python é opcional.
-Faça tarefas pequenas diretamente. Delegue quando houver trabalho independente,
-necessidade de contexto novo ou revisão útil, respeitando as regras do executor.
-Não abra PR nem faça merge apenas por estar usando uma skill.
+Este repositório é a fonte única das instruções globais e das skills de Claude Code,
+Codex e OpenCode. `global/AGENTS.md` é o destino dos symlinks `~/.claude/CLAUDE.md`,
+`~/.codex/AGENTS.md` e `~/.config/opencode/AGENTS.md`. `skills/` é instalado por
+`python3 scripts/install.py` em `~/.claude/skills` (também lido pelo OpenCode) e
+`~/.codex/skills`.
 
-Se retomar a adaptação para chat, leia `runs/chat-first.md`. As execuções antigas
-do esports em `.factory/` são artefatos preservados, não uma fila a reiniciar.
-Instruções de coordenação e permissões da sessão/projeto continuam aplicáveis.
+Para mudar uma skill, siga o playbook `skills/poteto-mode/playbooks/authoring-a-skill.md`.
+Antes de commitar, rode:
 
-Ao produzir código, aplique `skills/poteto-mode/references/quality.md`. Ela define
-sem useEffect, quase nenhum comentário explicativo e restrições codificadas em
-APIs/tipos/checks. As skills no-comments e create-verification-skill detalham
-limpeza e prova de comportamento. Não considere o enforcement instalado nos apps
-apenas porque a política existe neste repositório.
+```sh
+python3 scripts/check_skills.py --fix
+python3 scripts/check_skills.py
+python3 -m unittest discover -s tests
+python3 scripts/install.py
+```
 
-Para triagem e revisão de segurança, leia `skills/security-review/SKILL.md`.
-Mudanças sensíveis recebem revisão focada; auditoria completa usa security-audit
-quando solicitada. Gates são definidos por projeto; instruções não fornecem sandbox.
+`check_skills.py --fix` gera `agents/openai.yaml` para toda skill com
+`disable-model-invocation: true`; é assim que o Codex respeita o "só invocação".
+Registre em `UPSTREAM.md` a origem e as adaptações de tudo que vier de fora.
+`skills/security-audit` é cópia fixada da Cloudflare: não edite além do que o
+UPSTREAM.md documenta.
+
+`scripts/factory.py` é o runner de terminal opcional; só roda quando o operador
+pede. As execuções antigas do esports em `.factory/` são artefatos preservados,
+não uma fila a reiniciar.

@@ -76,3 +76,8 @@ como references/comment-sicko.md lido por subagente, sem agente customizado),
 correct, reflect (edita as fontes da factory), create-verification-skill (exemplo de
 mapa reduzido a uma feature, em pt-BR) e maintain-verification-skill. autopilot-stack
 e autopilot-full viraram atalhos para os playbooks do poteto-mode.
+security-review foi renomeado para security-gate (colidia com o /security-review
+nativo do Claude Code) e ficou só por invocação. security-audit continua sem
+alterações no commit fixado (o upstream não mudou até 2026-11-19), exceto pela
+linha `disable-model-invocation: true` no frontmatter e pelo agents/openai.yaml
+gerado, para não ativar sozinha em toda pergunta de segurança.

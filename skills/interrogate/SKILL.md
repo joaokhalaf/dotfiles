@@ -25,7 +25,7 @@ Reexecute o comando de cada achado (**principle-prove-it-works**). Mantenha o ac
 
 Pule as Fases C, D e E do arena: adversários acham falhas diferentes, então o veredito mantém todo achado verificado, não a lista de um adversário.
 
-Candidato de segurança: siga **security-review** (fronteira e impacto demonstrados, refutação independente).
+Candidato de segurança: siga **security-gate** (fronteira e impacto demonstrados, refutação independente).
 
 ## Saída
 
