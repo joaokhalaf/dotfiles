@@ -81,3 +81,9 @@ nativo do Claude Code) e ficou só por invocação. security-audit continua sem
 alterações no commit fixado (o upstream não mudou até 2026-11-19), exceto pela
 linha `disable-model-invocation: true` no frontmatter e pelo agents/openai.yaml
 gerado, para não ativar sozinha em toda pergunta de segurança.
+
+## Sem runner (2026-11-19)
+
+O runner de terminal (scripts/factory.py, providers.py, perfis, piloto esports,
+testes e registros de rodada) foi removido: as boas práticas entram só pelas
+instruções globais e skills. O histórico continua no git.
