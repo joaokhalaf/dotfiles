@@ -14,14 +14,34 @@ numa linha `Pulado neste executor: <passo>. <razão>.` e siga; não invente subs
 | Loop e espera | `/loop`, `ScheduleWakeup`, `Monitor` | sem loop nativo: continue no turno | sem loop nativo: continue no turno |
 | Rodar outra skill | `Read` em `../<nome>/SKILL.md` | ler o arquivo | ler o arquivo |
 
-No T3 Code, as ferramentas `mcp__t3-code__*` têm prioridade: `delegate_task` para outro
-provider ou worktree, `watch_pull_request` para esperar PR, `t3_background_wait` para
+No T3 Code, as ferramentas `mcp__t3-code__*` têm prioridade: `delegate_task` para
+worktree, `watch_pull_request` para esperar PR, `t3_background_wait` para
 processo em background. Siga as regras do T3 sobre polling.
 
 ## Modelos
 
-Subagentes herdam o modelo da sessão. Defina `model` ou `effort` só quando o usuário
-pedir. Slug de outro vendor ou indisponível: omita e diga.
+Quem executa (worker, explorador, candidato, braço de swarm) herda modelo e effort da
+sessão. Mude só quando o usuário pedir.
+
+Quem avalia (revisor de código, juiz, verificador, refutador, revisor de trilha) é um
+_avaliador_: subagente Claude de outra família que não a do autor, em contexto novo,
+com effort um nível acima do da sessão (`low` → `medium` → `high` → `xhigh` → `max`;
+sem saber o da sessão, `xhigh`; sessão em `max`, mantenha `max`). Passe `model` e `effort` explicitamente: o effort da
+sessão não vale em outro modelo.
+
+| Autor | Avaliador |
+|---|---|
+| Opus | `fable`, senão `sonnet` |
+| Fable | `opus` |
+| Sonnet | `opus` |
+| Haiku | `sonnet` |
+
+Claude Code: `Agent` com `model` (alias) e `effort`. Executor sem troca de modelo por
+subagente: diga numa linha `Avaliador no modelo do autor: <razão>.` e siga. Modelo
+indisponível (ex.: Fable sem créditos de uso, HTTP 429): use a alternativa da tabela e diga.
+
+O advisor do Claude Code (`advisorModel: "fable"`) é consultado pelo próprio harness;
+não substitui o avaliador.
 
 ## Superfícies de verificação
 
@@ -46,8 +66,3 @@ Respostas a threads: `gh api` com payload em arquivo, nunca shell montado com te
 | Codex | `~/.codex/sessions/` |
 
 Leia só as transcrições deste workspace.
-
-## Coordenação
-
-Dentro do Herdr (`HC_TERMINAL_ID` definido) ou com peers ativos no repo, siga o protocolo
-`herdr-orchestration` das instruções globais. Fora disso, sem reservas.

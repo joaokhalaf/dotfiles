@@ -6,12 +6,13 @@
 - Funciona igual em Claude Code, Codex e OpenCode. Nenhum provider é o padrão;
   regras e skills se adaptam ao que estiver em uso. Diferenças entre eles ficam
   em `skills/poteto-mode/references/harness.md`, nunca espalhadas pelas skills.
-- Terminal, Herdr, T3 Code e Desktop são superfícies possíveis conforme as
-  ferramentas reais. Herdr só é exigido dentro do Herdr.
+- Terminal, VS Code, T3 Code e Desktop são superfícies possíveis conforme as
+  ferramentas reais.
 - Sem dependências exclusivas do Cursor; preservar ferramentas e regras da sessão.
 - Em engenharia, o poteto-mode está sempre ativo e começa pelo grilling. Glossário
   e ADRs sempre em pt-BR.
-- Subagentes por benefício concreto, herdando o modelo da sessão.
+- Subagentes por benefício concreto. Quem executa herda o modelo da sessão; quem
+  avalia roda em outro modelo Claude, effort um nível acima.
 - APIs, tipos e checks devem reduzir decisões ambíguas; texto só quando necessário.
 - Testar as práticas neste próprio repo, observar problemas e adaptar com evidência.
 

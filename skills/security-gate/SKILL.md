@@ -23,7 +23,8 @@ Considere chamadores e configuração quando necessários para provar alcance.
 Cada candidato precisa de arquivo/linha, pré-condições, fronteira violada,
 impacto, evidência e menor correção. Separe falha introduzida de preexistente.
 Um verificador em contexto novo tenta refutar cada candidato antes de confirmá-lo;
-use a delegação permitida pelo executor, herdando provider/configuração. Se faltar
+use um avaliador (outro modelo Claude, effort um nível acima; ver harness do
+**poteto-mode**). Se faltar
 delegação, registre a lacuna e mantenha o candidato pendente. Revisão própria
 não equivale a validação independente. Não confirme vulnerabilidade por ausência
 de uma prática recomendada se outro controle impede o ataque.
@@ -41,7 +42,7 @@ ambiente vazio com allowlist, fonte/toolchain somente leitura, escrita só no
 scratch atribuído e limites de recursos. Use fixtures e identidades fictícias.
 Sem esses controles, faça inspeção estática; não execute PoC/código do alvo e
 registre needs_validation quando a execução for decisiva. Worktree, container
-sem restrições, reserva Herdr e promessa em prompt não comprovam sandbox.
+sem restrições, reserva cooperativa e promessa em prompt não comprovam sandbox.
 Os comandos normais de desenvolvimento não comprovam a execução de uma auditoria
 isolada nem autorizam relaxar seus controles.
 

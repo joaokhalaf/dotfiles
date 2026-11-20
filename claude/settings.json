@@ -7,5 +7,6 @@
     "command": "python3 ~/.claude/statusline.py",
     "refreshInterval": 30
   },
-  "theme": "dark"
+  "theme": "dark",
+  "advisorModel": "fable"
 }
