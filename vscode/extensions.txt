@@ -1,3 +1,4 @@
+anthropic.claude-code
 github.github-vscode-theme
 ms-vscode-remote.remote-wsl
 vscode-icons-team.vscode-icons

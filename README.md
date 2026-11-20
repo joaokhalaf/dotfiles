@@ -47,6 +47,8 @@ O VS Code roda no Windows e não segue symlinks do WSL, então `vscode/settings.
 `settings.json.bak`. Mudança feita pela UI do VS Code precisa voltar para o repo à
 mão. Extensões ficam em `vscode/extensions.txt`; para instalar, a partir de `/mnt/c`:
 `xargs -n1 cmd.exe /c code --install-extension < vscode/extensions.txt`.
+O Claude Code roda no lado do WSL: numa janela WSL, instale também com
+`code --install-extension anthropic.claude-code` no terminal do WSL.
 
 `claude/` traz o `settings.json` do Claude Code (modo `acceptEdits` e status line)
 e o `statusline.py`, que mostra modelo, contexto, limites de 5h e 7d e o cache.
