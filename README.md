@@ -33,7 +33,7 @@ por benefício concreto, herdando o modelo da sessão.
 
 ```sh
 brew bundle --file=Brewfile          # pacotes
-python3 scripts/install.py            # links de skills, zsh, starship e instruções globais; copia o settings do VS Code
+python3 scripts/install.py            # links de skills, zsh, starship, instruções globais e config do Claude; copia o settings do VS Code
 python3 scripts/install.py --dry-run
 python3 scripts/install.py --uninstall   # troca os links de config por cópias
 ```
@@ -43,10 +43,20 @@ for diferente, o instalador reporta `skip` e não mexe. Para atualizar o Brewfil
 `brew bundle dump --file=Brewfile --force --no-winget --no-npm --no-vscode`.
 
 O VS Code roda no Windows e não segue symlinks do WSL, então `vscode/settings.json`
-é copiado para `%APPDATA%\Code\User`; se o destino diferir, a versão anterior vira
+é copiado para `%USERPROFILE%\AppData\Roaming\Code\User`; se o destino diferir, a versão anterior vira
 `settings.json.bak`. Mudança feita pela UI do VS Code precisa voltar para o repo à
 mão. Extensões ficam em `vscode/extensions.txt`; para instalar, a partir de `/mnt/c`:
 `xargs -n1 cmd.exe /c code --install-extension < vscode/extensions.txt`.
+
+`claude/` traz o `settings.json` do Claude Code (modo `acceptEdits` e status line)
+e o `statusline.py`, que mostra modelo, contexto, limites de 5h e 7d e o cache.
+
+## Worktree por tarefa
+
+`wt <tarefa>` cria `~/work/worktrees/<repo>/<tarefa>` com a branch `<tarefa>` a
+partir da main remota, copia os `.env*` ignorados do repositório principal e abre
+no VS Code. `wtd <tarefa>` remove a worktree (recusa se houver mudança) e apaga a
+branch só se ela já estiver na main remota.
 
 O OpenCode lê `~/.claude/skills`. Abra uma sessão nova depois de instalar ou editar.
 

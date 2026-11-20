@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "python3 ~/.claude/statusline.py",
+    "refreshInterval": 30
+  },
+  "theme": "dark"
+}

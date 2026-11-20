@@ -75,5 +75,6 @@
   "claudeCode.preferredLocation": "sidebar",
   "workbench.iconTheme": "vscode-icons",
   "claudeCode.promptSuggestions": false,
-  "workbench.colorTheme": "GitHub Dark"
+  "workbench.colorTheme": "GitHub Dark",
+  "vsicons.dontShowNewVersionMessage": true
 }

@@ -24,6 +24,8 @@ CONFIG = {
     HOME / '.zshenv': ROOT / 'zsh/.zshenv',
     HOME / '.config/starship.toml': ROOT / 'starship/starship.toml',
     HOME / '.claude/CLAUDE.md': ROOT / 'global/AGENTS.md',
+    HOME / '.claude/settings.json': ROOT / 'claude/settings.json',
+    HOME / '.claude/statusline.py': ROOT / 'claude/statusline.py',
     HOME / '.codex/AGENTS.md': ROOT / 'global/AGENTS.md',
     HOME / '.config/opencode/AGENTS.md': ROOT / 'global/AGENTS.md',
 }
@@ -31,10 +33,11 @@ CONFIG = {
 
 def vscode_user_dir():
     if shutil.which('cmd.exe') and shutil.which('wslpath'):
-        appdata = subprocess.run(['cmd.exe', '/c', 'echo %APPDATA%'], capture_output=True, text=True,
+        # %APPDATA% can be redirected by the launching app (T3 points it elsewhere); %USERPROFILE% is stable.
+        profile = subprocess.run(['cmd.exe', '/c', 'echo %USERPROFILE%'], capture_output=True, text=True,
                                  cwd='/mnt/c').stdout.strip()
-        return Path(subprocess.run(['wslpath', '-u', appdata], capture_output=True, text=True,
-                                   check=True).stdout.strip()) / 'Code/User'
+        return Path(subprocess.run(['wslpath', '-u', profile], capture_output=True, text=True,
+                                   check=True).stdout.strip()) / 'AppData/Roaming/Code/User'
     return HOME / '.config/Code/User'
 
 

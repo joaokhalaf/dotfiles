@@ -57,6 +57,54 @@ alias gp='git push'
 alias gw='git worktree list'
 alias ll='ls -lah'
 
+# Worktree por tarefa: cria ~/work/worktrees/<repo>/<tarefa> a partir do default remoto e abre no VS Code
+wt() {
+  if [[ -z "$1" ]]; then
+    echo "uso: wt <tarefa>" >&2
+    return 1
+  fi
+  local root dir base file
+  root="$(git rev-parse --path-format=absolute --git-common-dir)" || return 1
+  root="${root:h}"
+  dir="$HOME/work/worktrees/${root:t}/${1//\//-}"
+  if [[ ! -d "$dir" ]]; then
+    git -C "$root" fetch origin --quiet || return 1
+    base="$(git -C "$root" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || echo origin/main)"
+    if git -C "$root" show-ref --verify --quiet "refs/heads/$1"; then
+      git -C "$root" worktree add "$dir" "$1" || return 1
+    else
+      git -C "$root" worktree add --no-track -b "$1" "$dir" "$base" || return 1
+    fi
+    # .env* ignorados não vêm com o checkout: copia do repositório principal
+    git -C "$root" ls-files -z --others --ignored --exclude-standard -- '.env*' '*/.env*' |
+      while IFS= read -r -d '' file; do
+        [[ "$file" == (*/|)node_modules/* ]] && continue
+        mkdir -p "$dir/${file:h}" && cp -p "$root/$file" "$dir/$file" && echo "copiado: $file"
+      done
+  fi
+  code "$dir"
+}
+
+# Fecha a tarefa: remove a worktree (recusa se houver mudança) e a branch, se já integrada
+wtd() {
+  if [[ -z "$1" ]]; then
+    echo "uso: wtd <tarefa>" >&2
+    return 1
+  fi
+  local root dir
+  root="$(git rev-parse --path-format=absolute --git-common-dir)" || return 1
+  root="${root:h}"
+  dir="$HOME/work/worktrees/${root:t}/${1//\//-}"
+  [[ "$PWD/" == "$dir/"* ]] && cd "$root"
+  git -C "$root" worktree remove "$dir" || return 1
+  git -C "$root" fetch origin --quiet
+  if git -C "$root" branch --merged "$(git -C "$root" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || echo origin/main)" --format='%(refname:short)' | grep -qx -- "$1"; then
+    git -C "$root" branch -D "$1"
+  else
+    echo "branch $1 mantida: não está na main remota (squash merge? apague com git branch -D $1)"
+  fi
+}
+
 # Starship
 eval "$(starship init zsh)"
 
