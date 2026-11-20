@@ -1,0 +1,59 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+add_newline = false
+palette = "mocha"
+
+format = "$directory$git_branch$git_status$nodejs$bun$python$character"
+right_format = "$time"
+
+[palettes.mocha]
+blue = "#89b4fa"
+mauve = "#cba6f7"
+green = "#a6e3a1"
+yellow = "#f9e2af"
+red = "#f38ba8"
+subtext = "#9399b2"
+
+[fill]
+symbol = " "
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+truncate_to_repo = true
+format = "[$path]($style) "
+
+[git_branch]
+symbol = " "
+style = "mauve"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "yellow"
+format = "([$all_status$ahead_behind]($style) )"
+modified = "!${count}"
+staged = "+${count}"
+untracked = "?${count}"
+deleted = "-${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕"
+conflicted = "="
+
+[nodejs]
+format = "[Node $version](green) "
+
+[bun]
+format = "[Bun $version](yellow) "
+
+[python]
+format = "[Python $version](yellow) "
+
+[time]
+disabled = false
+time_format = "%H:%M"
+format = "[$time](subtext)"
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "

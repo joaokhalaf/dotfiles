@@ -1,0 +1,11 @@
+tap "anomalyco/tap"
+brew "bat"
+brew "eza"
+brew "fd"
+brew "gh"
+brew "herdr"
+brew "ripgrep"
+brew "zsh"
+brew "anomalyco/tap/opencode-v2", trusted: true
+cask "claude-code"
+cask "codex"

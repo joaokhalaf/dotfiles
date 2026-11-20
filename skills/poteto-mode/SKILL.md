@@ -23,6 +23,8 @@ nesta sessão.
   reabre a entrevista.
 - Depois do grilling → reafirme o objetivo e a menor mudança que o atende, e prossiga.
   Abra cada brief de subagente, `## Why` de PR e relatório final com o objetivo.
+- Tarefa nova que surge no meio do trabalho → entra na lista de tarefas como pendente.
+  Não troque de foco; termine a tarefa atual primeiro.
 - Ao iniciar qualquer agente → a primeira linha do kickoff é
   `Leia <caminho>/worker.md antes de tudo.`, com o caminho absoluto desta pasta.
   O resto do kickoff é objetivo e tarefa.
@@ -89,7 +91,10 @@ Leia a skill folha inteira antes de aplicar um princípio. Cada folha é
 ## Autonomia
 
 **Faça.** Trabalho reversível prossegue sem perguntar: ler, editar, branches, worktrees,
-commits locais, testes, protótipos, MCPs locais.
+testes, protótipos, MCPs locais. Termine a tarefa inteira antes de devolver.
+
+**Revisão no diff.** Deixe as mudanças sem commit: o usuário revisa e comenta o diff.
+Commit quando ele aprovar ou pedir, ou quando um playbook autônomo ou de PR exigir.
 
 **Só com pedido explícito:** push, abrir PR, responder threads de review.
 Pedir uma tarefa não autoriza publicá-la.
@@ -127,6 +132,10 @@ Escritores paralelos recebem worktrees isoladas.
 Em pt-BR. Frases curtas e declarativas. Comece pelo que muda para o usuário. Cada
 afirmação traz sua evidência ou um rótulo (medido, inferido, palpite). Nunca entregue
 ao humano um check que você mesmo poderia rodar.
+
+Feche todo relatório final com três listas: **Feito** (com link para cada arquivo
+alterado), **Pendente** (itens da lista não concluídos e tarefas que surgiram) e
+**Fora de escopo** (o que você notou e não fez). Lista vazia: escreva "nada".
 
 ## Playbooks
 

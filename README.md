@@ -1,4 +1,10 @@
-# Boas práticas de engenharia para agentes
+# dotfiles
+
+Configuração da máquina: zsh (`zsh/`), prompt Starship (`starship/`), VS Code
+(`vscode/`), pacotes do Homebrew (`Brewfile`) e as regras e skills dos agentes
+descritas abaixo. Um único `scripts/install.py` liga tudo em `~`.
+
+## Regras e skills dos agentes
 
 Regras globais e skills que entram sozinhas sempre que Claude Code, Codex ou
 OpenCode começam a trabalhar num código. Nada para rodar: a instrução global
@@ -6,7 +12,7 @@ carrega o fluxo, e as skills ativam pelo seu pedido.
 
 Base: [pstack](https://github.com/cursor/plugins/tree/main/pstack) e
 [mattpocock/skills](https://github.com/mattpocock/skills), traduzidos para pt-BR e
-adaptados (origem e mudanças em [UPSTREAM.md](UPSTREAM.md)).
+adaptados (licenças em [LICENSE](LICENSE)).
 
 ## O que acontece quando você pede algo
 
@@ -26,10 +32,21 @@ por benefício concreto, herdando o modelo da sessão.
 ## Instalar
 
 ```sh
-python3 scripts/install.py            # links em ~/.claude/skills e ~/.codex/skills
+brew bundle --file=Brewfile          # pacotes
+python3 scripts/install.py            # links de skills, zsh, starship e instruções globais; copia o settings do VS Code
 python3 scripts/install.py --dry-run
-python3 scripts/install.py --uninstall
+python3 scripts/install.py --uninstall   # troca os links de config por cópias
 ```
+
+Um arquivo que já existe em `~` só vira link se tiver o mesmo conteúdo do repo; se
+for diferente, o instalador reporta `skip` e não mexe. Para atualizar o Brewfile:
+`brew bundle dump --file=Brewfile --force --no-winget --no-npm --no-vscode`.
+
+O VS Code roda no Windows e não segue symlinks do WSL, então `vscode/settings.json`
+é copiado para `%APPDATA%\Code\User`; se o destino diferir, a versão anterior vira
+`settings.json.bak`. Mudança feita pela UI do VS Code precisa voltar para o repo à
+mão. Extensões ficam em `vscode/extensions.txt`; para instalar, a partir de `/mnt/c`:
+`xargs -n1 cmd.exe /c code --install-extension < vscode/extensions.txt`.
 
 O OpenCode lê `~/.claude/skills`. Abra uma sessão nova depois de instalar ou editar.
 
