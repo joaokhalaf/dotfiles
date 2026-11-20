@@ -26,6 +26,7 @@ CONFIG = {
     HOME / '.claude/CLAUDE.md': ROOT / 'global/AGENTS.md',
     HOME / '.claude/settings.json': ROOT / 'claude/settings.json',
     HOME / '.claude/statusline.py': ROOT / 'claude/statusline.py',
+    HOME / '.local/bin/local-browser': ROOT / 'local-browser/local-browser',
     HOME / '.codex/AGENTS.md': ROOT / 'global/AGENTS.md',
     HOME / '.config/opencode/AGENTS.md': ROOT / 'global/AGENTS.md',
 }
