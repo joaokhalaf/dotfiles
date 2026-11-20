@@ -51,8 +51,14 @@ mão. Extensões ficam em `vscode/extensions.txt`; para instalar, a partir de `/
 O Claude Code roda no lado do WSL: numa janela WSL, instale também com
 `code --install-extension anthropic.claude-code` no terminal do WSL.
 
-`claude/` traz o `settings.json` do Claude Code (modo `acceptEdits` e status line)
-e o `statusline.py`, que mostra modelo, contexto, limites de 5h e 7d e o cache.
+`claude/` traz o `settings.json` do Claude Code (modo de permissão, status line e
+advisor no Fable) e o `statusline.py`, que mostra modelo, contexto, limites de 5h e
+7d e o cache.
+
+Ajustes de uma máquina só ficam em `~/.zshenv.local`, fora do repo; o `.zshenv`
+carrega esse arquivo se ele existir. No plano Pro o Fable exige créditos de uso e
+o advisor bloqueia a requisição, então ali o arquivo desliga o advisor:
+`export CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1`. No Max não precisa.
 
 ## Browser local
 
