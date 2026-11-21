@@ -14,8 +14,8 @@ O escopo é o que o usuário nomeia. Senão, o diff da branch desde a base de me
 
 ## Escolher o modo
 
-- **Leve:** mudança pequena ou sem delegação disponível. Você mesmo revisa: leia instruções do projeto, diff e chamadores afetados; priorize correção, contratos, erros, concorrência e impacto nos consumidores. Diga que é revisão própria, sem independência.
-- **Completo:** mudança relevante ou pedido explícito. Use as Fases A (passos 3 e 4) e B do **arena** com estas mudanças: assentos no modelo da sessão mais outro provider disponível (ex.: Codex via T3); copie as mudanças não commitadas para cada worktree; em vez da tarefa da arena, dê a cada adversário o escopo, a intenção e este brief:
+- **Leve:** mudança pequena. Um avaliador (ver harness do **poteto-mode**) revisa: lê instruções do projeto, diff e chamadores afetados; prioriza correção, contratos, erros, concorrência e impacto nos consumidores. Sem delegação disponível, revise você mesmo e diga que é revisão própria, sem independência.
+- **Completo:** mudança relevante ou pedido explícito. Use as Fases A (passos 3 e 4) e B do **arena** com estas mudanças: cada assento é um avaliador (outro modelo Claude, effort um nível acima), dois ou mais em contextos separados; copie as mudanças não commitadas para cada worktree; em vez da tarefa da arena, dê a cada adversário o escopo, a intenção e este brief:
 
 > Quebre esta mudança. Prove cada achado com uma execução contra o código real: teste falhando, script de repro ou saída de comando mostrando o comportamento errado. Para design ou plano, rode um protótipo ou sonde a árvore atual. Mantenha as repros na sua worktree. Reporte cada achado com título, comando exato, a saída que ele imprimiu e a saída que a intenção exige. Deixe de fora tudo que não executou: estilo, nomes, estrutura e riscos que dependem de mudança futura. Nenhum achado é um resultado válido.
 
@@ -32,4 +32,4 @@ Candidato de segurança: siga **security-gate** (fronteira e impacto demonstrado
 - **Intenção:** a reafirmação.
 - **Achados:** para cada achado verificado, arquivo/linha, comando, saída, como quebra a intenção e quais adversários acharam. "Nenhum achado verificado" quando nada sobrevive.
 - **Descartados:** por adversário, quantos e por quê.
-- **Cobertura:** modo usado, providers dos assentos, o que não foi verificado. Ausência de achados não prova correção.
+- **Cobertura:** modo usado, modelo e effort dos assentos, o que não foi verificado. Ausência de achados não prova correção.

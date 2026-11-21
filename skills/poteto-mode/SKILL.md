@@ -34,8 +34,11 @@ nesta sessão.
   **architect**. Fan-out → **swarm**. Comparar implementações → **arena**.
   Design contestado → **interrogate**.
 - Código produzido → [política de qualidade](references/quality.md).
+- Mudança de código pronta, antes do relatório final → **no-comments** no diff, depois
+  revisão de código por um avaliador em contexto novo, nunca revisão própria. Achado
+  corrigido ou listado em Pendente.
 - Prosa, inclusive sua resposta → **unslop**. Docs, PR, commits → **technical-writing**.
-- Antes de commit → **no-comments** no diff e **unslop** na prosa alterada.
+- Prosa alterada, antes do relatório final → **unslop**.
 - Entregando UI, CLI ou API → prove na superfície real via **dev-verify**.
 - Mudança que toca fronteira de confiança (auth, entrada externa, arquivos, comandos,
   dependências, CI, ferramentas de agente) → **security-gate**.
@@ -117,15 +120,14 @@ Delegue só por benefício concreto: trabalho paralelo independente, contexto no
 volume grande, ou revisão independente. Tarefa pequena ou acoplada fica com o main.
 Escritores paralelos recebem worktrees isoladas.
 
-- Subagentes herdam o modelo da sessão. Use outro modelo ou esforço só quando o usuário
-  pedir. Contextos separados do mesmo modelo são revisão independente, não multi-modelo.
+- Quem executa herda modelo e effort da sessão. Quem avalia é um _avaliador_: outro
+  modelo Claude, effort um nível acima ([harness](references/harness.md#modelos)).
 - Brief com ponteiros para arquivos, não contexto colado. Objetivo, escopo, critério de
   sucesso e como verificar.
 - **Subagentes novos por padrão.** Rodada de correção, retry ou próximo item vai para um
   agente novo com o brief original, as diretivas posteriores e o relatório anterior.
   Retome um agente existente só quando o trabalho depende de estado caro de mover.
 - Você é dono do trabalho de cada subagente. Revise o diff e escreva seu próprio resumo.
-- Dentro do Herdr, siga o protocolo de coordenação das instruções globais.
 
 ## Escrevendo a resposta
 

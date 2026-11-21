@@ -64,14 +64,14 @@ Corrija o log, não a história. A auditoria nunca edita nem remove linhas, nem 
 
 ## Revisão da trilha por outro modelo
 
-Antes de entregar, peça a um revisor de outro provider (ex.: Codex via `delegate_task` no T3) que leia a trilha e a transcrição e aponte o que o usuário deve olhar. Sem outro provider, use um contexto novo do modelo da sessão e diga isso. Não é refazer o trabalho; é procurar o que está fraco ou arriscado:
+Antes de entregar, peça a um avaliador (outro modelo Claude, effort um nível acima; ver harness do **poteto-mode**) que leia a trilha e a transcrição e aponte o que o usuário deve olhar. Não é refazer o trabalho; é procurar o que está fraco ou arriscado:
 
 - Decisões com evidência fraca ou ausente.
 - Verificações puladas ou alegadas sem prova na transcrição.
 - Escolhas arriscadas em retrospecto (prematuras, que ampliam escopo, que mascaram sintoma).
 - Lacunas que o usuário perderia numa leitura rápida.
 
-Toda resposta de execução com trilha termina com uma seção "Atenção". Primeira linha: `revisado por <provider/modelo>`. Depois, cada apontamento ligado a linhas ou momentos específicos. "Nenhum apontamento" é válido; omitir o revisor não é.
+Toda resposta de execução com trilha termina com uma seção "Atenção". Primeira linha: `revisado por <modelo/effort>`. Depois, cada apontamento ligado a linhas ou momentos específicos. "Nenhum apontamento" é válido; omitir o revisor não é.
 
 ## Lendo a trilha
 

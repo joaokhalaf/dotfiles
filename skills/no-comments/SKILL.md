@@ -1,6 +1,6 @@
 ---
 name: no-comments
-description: Lança o Comment Sicko no diff, corrige os achados aceitos e oferece codificar restrições alegadas em comentários. Use para /no-comments ou antes de commit/revisão.
+description: Lança o Comment Sicko no diff, corrige os achados aceitos e oferece codificar restrições alegadas em comentários. Use para /no-comments ou com a mudança pronta, antes da revisão do avaliador.
 disable-model-invocation: true
 ---
 

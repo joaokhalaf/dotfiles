@@ -16,7 +16,7 @@ Abra uma lista de tarefas com uma entrada por fase antes de lançar qualquer coi
 
 1. Declare o predicado de pronto e o artefato ou relatório que o swarm devolve.
 2. Escolha o formato: partição em fatias, corrida de N executores com briefs idênticos, ou misto. Em corrida ou misto, declare antes de lançar a regra: `primeiro que passar`, `ranquear todos` ou `melhor de`.
-3. Executores herdam o modelo da sessão. Corrida entre modelos ou providers só quando o usuário pede; nomeie o modelo de cada braço antes.
+3. Executores herdam o modelo da sessão; braço que revisa ou verifica é avaliador ([harness](../poteto-mode/references/harness.md#modelos)). Corrida entre modelos ou providers só quando o usuário pede; nomeie o modelo de cada braço antes.
 4. Escritores recebem saída própria: worktree isolada para código (**principle-separate-before-serializing-shared-state**). Revisores somente leitura podem inspecionar o checkout atual. Quando executores verificam ou medem commits, cada brief nomeia os SHAs exatos; brief de medição nomeia também o método (amostras, o que é uma amostra, ordem), e o executor registra os dois no resultado.
 5. Padrão de até 3 executores em paralelo. Mais só com fatias realmente independentes e custo justificado.
 

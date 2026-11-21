@@ -18,7 +18,7 @@
 2. **Ambientes sanitizados.** Um diretório por candidato com a variante no lugar e o contexto que uma tarefa orgânica teria.
 3. **Um prompt orgânico.** O que um usuário digitaria, sem vazar o que se mede.
 4. **N candidatos em paralelo** por subagente, cada um no seu diretório, mesmo prompt. Modelos diferentes só se o usuário pedir; senão, contextos separados do modelo da sessão.
-5. **Um juiz cego** em contexto novo, com rótulos sanitizados e a rubrica.
+5. **Um juiz cego**, avaliador (ver [harness](../references/harness.md#modelos)), com rótulos sanitizados e a rubrica.
 6. **Verifique a cadeia pelas transcrições**, não pela autodeclaração. Leia as transcrições do workspace atual (caminhos em [harness](../references/harness.md)), sem atravessar outros projetos. Avalie pelos arquivos realmente abertos e pela forma do código.
 7. **Leia cada saída você mesmo**, de ponta a ponta, e compare com o veredito do juiz. Discordância indica viés ou rubrica ambígua. Sintetize.
 

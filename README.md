@@ -27,7 +27,8 @@ adaptados (licenças em [LICENSE](LICENSE)).
 4. Verifica no artefato real (browser, terminal, API) antes de dizer que terminou.
 
 Push e PR só com pedido. Merge só com autorização nomeando os PRs. Subagentes só
-por benefício concreto, herdando o modelo da sessão.
+por benefício concreto: quem executa herda o modelo da sessão; revisores, juízes e
+verificadores rodam em outro modelo Claude, com effort um nível acima.
 
 ## Instalar
 
@@ -50,8 +51,33 @@ mão. Extensões ficam em `vscode/extensions.txt`; para instalar, a partir de `/
 O Claude Code roda no lado do WSL: numa janela WSL, instale também com
 `code --install-extension anthropic.claude-code` no terminal do WSL.
 
-`claude/` traz o `settings.json` do Claude Code (modo `acceptEdits` e status line)
-e o `statusline.py`, que mostra modelo, contexto, limites de 5h e 7d e o cache.
+`claude/` traz o `settings.json` do Claude Code (modo de permissão, status line e
+advisor no Fable) e o `statusline.py`, que mostra modelo, contexto, limites de 5h e
+7d e o cache.
+
+Ajustes de uma máquina só ficam em `~/.zshenv.local`, fora do repo; o `.zshenv`
+carrega esse arquivo se ele existir. No plano Pro o Fable exige créditos de uso e
+o advisor bloqueia a requisição, então ali o arquivo desliga o advisor:
+`export CLAUDE_CODE_DISABLE_ADVISOR_TOOL=1`. No Max não precisa.
+
+## Browser local
+
+`local-browser/` é o browser que os agentes usam para validar apps locais: o
+wrapper `local-browser` (ligado em `~/.local/bin`) roda o
+[agent-browser](https://github.com/vercel-labs/agent-browser) com sessão e perfil
+por workspace em `~/.local/state/local-browser/<workspace>`, e `mcp.py` expõe a
+ferramenta `browser` por MCP. O binário `agent-browser` (release do GitHub) fica em
+`~/.local/bin` e o Chrome dele em `~/.agent-browser` (`agent-browser install`). As
+bibliotecas que o Chrome pede e o WSL não traz (`libnss3`, `libnspr4`,
+`libasound2t64`) ficam extraídas sem sudo em `~/.local/share/browser-libs/root`, com
+`apt download` e `dpkg -x`. Para registrar o MCP:
+
+```sh
+claude mcp add -s user local-browser -- /usr/bin/python3 ~/work/dotfiles/local-browser/mcp.py
+```
+
+No Codex (`~/.codex/config.toml`, `[mcp_servers.local-browser]`) e no OpenCode
+(`~/.config/opencode/opencode.json`) o comando é o mesmo.
 
 ## Worktree por tarefa
 
